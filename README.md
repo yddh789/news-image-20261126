@@ -8,11 +8,13 @@ One image summing up the world news of Thursday 26 November 2026.
 
 ## What it is
 
-`main.py` (Python 3.13, Pillow only) draws a 1024×1024 front page:
+`main.py` (Python 3, standard library only — no Pillow, no system fonts:
+the PNG is encoded by hand with `zlib` + `struct` and all text is drawn
+from an embedded 5x7 bitmap font) draws a 1024×1024 front page:
 a navy masthead naming the day, then six cards in a 2×3 grid, each with
 a tag, a headline, two or three lines of copy and a small geometric
 pictogram. No network, no randomness, no clock: two runs write the same
-bytes (sha256 `9e0d7531677f56ef498439094320d7169eba2f1c9ff1101170bdd9d97c74da59`).
+bytes (sha256 `10ff6f12cd7b7540ac918a238800adc435fd853b9612bd3e2dc6543006eccad5`).
 
 ## Run it
 
@@ -22,7 +24,10 @@ python3 main.py
 
 Writes `output/26-nov-2026-news.png` (1024×1024, under 1 MiB). When the
 grader's `/output` exists, or `MAKEFUN_OUTPUT_DIR` is set, it writes
-`entry.png` there instead.
+`entry.png` there instead. Only the Python standard library is used
+(`os`, `struct`, `zlib`, `math`); it runs in a bare environment with no
+third-party packages and no font files — verify with
+`env -i PATH=/usr/bin:/bin python3 -P -s main.py`.
 
 ## The six stories
 
